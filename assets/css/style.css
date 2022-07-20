@@ -3,7 +3,8 @@
 }
 
 #search-area {
-    height: 100vh;
+    padding-top: 30px;
+    border-bottom: 3px solid black;
 }
 
 #content-section {
@@ -12,6 +13,45 @@
 
 #popular-recipes {
     height: 25vh;
+}
+
+::placeholder {
+    color: black;
+    text-align: center;
+    font-size: 14px;
+}
+
+#randomBtns {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#recipeBtn {
+    margin-right: 15px;
+   
+}
+
+#cocktailBtn {
+    margin-left: 15px;
+}
+
+#sideBar {
+    height: 100vh;
+}
+
+#list {
+    height: 80vh;
+    border: 5px solid teal;
+    margin-bottom: 20px;
+}
+
+#saveBtn {
+    align-content: center;
+}
+
+.buttonCenter {
+
 }
 
 @media only screen and (max-width: 600px) {
