@@ -22,10 +22,11 @@
         <div id="search-area" class="col s12 center grey lighten-4">
           <div class="container">
             <div class="row">
-              <input type="text" placeholder="Search" class="col s12 m6 offset-m3">
+              <input type="text" id="search" placeholder="Search" class="col s12 m6 offset-m3">
             </div>
             <div class="row">
-              <button id="recipeBtn" class="hoverable waves-effect waves-light btn btn-large col s12 m4 offset-m2">Recipes</button>
+              <!-- adding click function to button whihc will later be uses to display recipe -->
+              <button onclick="generateRecipe(document.getElementById('search').value.trim())" id="recipeBtn" class="hoverable waves-effect waves-light btn btn-large col s12 m4 offset-m2">Recipes</button>
               <button id="cocktailBtn" class="hoverable waves-effect waves-light btn btn-large col s12 m4">Cocktail</button>
             </div>
           </div>
@@ -76,7 +77,7 @@
              
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="./assets/js/script.js"></script>
   </body>
 </html>
