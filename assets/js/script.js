@@ -1,4 +1,3 @@
-
 // Array so that the recipe button generates a random recipe from the array
 var recipeArray = [];
 
@@ -23,22 +22,32 @@ function generateRecipe(query){
             recipeArray = res.results
             document.getElementById("recipeCall").innerHTML = "<h3>" + res.results[randomIndex].title + "</h3><br><img src='" + res.baseUri + res.results[randomIndex].image + "'width='300'/>";
             
-            // setting href attribute to recipeLink id so that it will take yser to recipe website
+            // setting href attribute to recipeLink id so that it will take user to recipe website
             document.getElementById("recipeLink").setAttribute("href", res.results[randomIndex].sourceUrl); 
             
             // this variable will be used in the following call to link ingredients to the random recipe that was generated 
             var getRecipeId = res.results[randomIndex].id;
             console.log(getRecipeId);
 
+            //for loop to display ingredients into DOM-----DJ
+            //We are going to need to create either "li/ul/ol" elements or display elements in an image
+            for (var i = 0; ingredientNameArray.length; i++) {
+                var ingredientText = ingredientNameArray[i];
+                console.log(ingredientText);
+            }
+
             // calling the ingredients to the DOM
+            // i think the loop should go here, currently I have it set to call the first name in the array, but would want to 
+            // loop the entire array to display all ingredient. Created array updtop called ingredientNameArray
             $.ajax({
                 url:"https://api.spoonacular.com/recipes/" + getRecipeId + "/ingredientWidget.json?apiKey=d5f1707aa8a94f70a3fce40a554aebc6",
                 success: function(res){
-                    document.getElementById("ingredientsCall").innerHTML = "<h3>Ingredients:</h3><br>" + res.ingredients[0].name;
+                    document.getElementById("ingredient-list").innerHTML = res.ingredients[0].name;
                 }
             });
 
         }  
     });
+}
 }
 
