@@ -54,7 +54,7 @@
 
 }
 
-#recipeCall h3 {
+#recipeCall h3, #ingredientsCall h3 {
     font-size: 25px;
 }
 
