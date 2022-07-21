@@ -12,14 +12,30 @@ function getRandomInt() {
 function generateRecipe(query){
     
     $.ajax({
-        url:"https://api.spoonacular.com/recipes/search?apiKey=d5f1707aa8a94f70a3fce40a554aebc6&number=30&query="+query,
+        url:"https://api.spoonacular.com/recipes/search?apiKey=d5f1707aa8a94f70a3fce40a554aebc6&number=30&query="+ query,
         success: function(res){
             var randomIndex = getRandomInt();
             recipeArray = res.results
             document.getElementById("recipeCall").innerHTML = "<h3>" + res.results[randomIndex].title + "</h3><br><img src='" + res.baseUri + res.results[randomIndex].image + "'width='300'/><br>";
-            document.getElementById("recipeLink").setAttribute("href", res.results[randomIndex].sourceUrl)
+            document.getElementById("recipeLink").setAttribute("href", res.results[randomIndex].sourceUrl); 
+            var getRecipeId = res.results[randomIndex].id;
+            console.log(getRecipeId);
+          
+             
             
+            // url:"https://api.spoonacular.com/recipes/" + getRecipeId + "/ingredientWidget.json?apiKey=d5f1707aa8a94f70a3fce40a554aebc6",
+            // success: function(res){
+                // document.getElementById("ingredientsCall").innerHTML = "<h3>Ingredients:</h3><br>" + res.ingredients.name;
+            // }
         }
-    });
-}
 
+       
+    });
+
+    // $.ajax({
+    //     url:"https://api.spoonacular.com/recipes/" + getRecipeId + "/ingredientWidget.json?apiKey=d5f1707aa8a94f70a3fce40a554aebc6",
+    //     success: function(res){
+    //         document.getElementById("ingredientsCall").innerHTML = "<h3>Ingredients:</h3><br>" + res.ingredients.name;
+    //     }
+    // });
+}
