@@ -1,9 +1,9 @@
 // Vars to connect to HTML
 var titleEl = document.getElementById('title');
 var imageEl = document.getElementById('image');
-var ingredientListEl = document.getElementById('ingredient-list')
+var ingredientListEl = document.getElementById('ingredient-list');
 var summaryEl = document.getElementById('summary');
-
+var instructionsEl = document.getElementsByName('instructions');
 //
 
 
@@ -48,15 +48,27 @@ function generateRecipe(query){
                         ingredientListEl.innerHTML = ingredientListEl.innerHTML + "<li>" + res.ingredients[i].name + "</li>";
                     }
                 }
-             });
+            });
 
-            //  will generate a recipe sumamry to be added to the p<p> element class id Sumarry, using the Recipe Id
+            // //  and step by step instructions, using recipe Id
+            // $.ajax({
+            //     url: "https://api.spoonacular.com/recipes/" + recipeId + "/analyzedInstructions?apiKey=d5f1707aa8a94f70a3fce40a554aebc6",
+            //     success: function(res){
+            //         instructionsEl.innerHTML = ''
+            //         for (var i = 0; res.steps.length; i++){
+            //             // creating a list element inside of the ordered list and will loop until all steps are listed in the DOM
+            //             instructionsEl.innerHTML = instructionsEl.innerHTML = "<li>" + res.res.steps.step + "</li>";
+            //         }
+            //     }
+            // });
+
+            //  will generate a recipe sumamry to be added to the <p> element class id Sumarry, using the Recipe Id
              $.ajax({
                 url:"https://api.spoonacular.com/recipes/" + recipeId + "/summary?apiKey=d5f1707aa8a94f70a3fce40a554aebc6",
                 success: function(res){
                     summaryEl.innerHTML = res.summary;
                 }
-             });
+            });
         }  
     });            
 }
