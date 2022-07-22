@@ -2,6 +2,7 @@
 var titleEl = document.getElementById('title');
 var imageEl = document.getElementById('image');
 var ingredientListEl = document.getElementById('ingredient-list')
+var summaryEl = document.getElementById('summary');
 
 //
 
@@ -35,6 +36,7 @@ function generateRecipe(query){
             imageEl.setAttribute('src',res.baseUri + res.results[randomIndex].image);
             // links id from first api call to recipeID which will be added into URL for second call
             recipeId = res.results[randomIndex].id 
+            console.log(recipeId);
 
             // will call the ingredients url and then add those ingredients to the DOM
             $.ajax({
@@ -47,6 +49,14 @@ function generateRecipe(query){
                     }
                 }
              });
+
+            //  will generate a recipe sumamry to be added to the p<p> element class id Sumarry, using the Recipe Id
+             $.ajax({
+                url:"https://api.spoonacular.com/recipes/" + recipeId + "/summary?apiKey=d5f1707aa8a94f70a3fce40a554aebc6",
+                success: function(res){
+                    summaryEl.innerHTML = res.summary;
+                }
+             });
         }  
-    })            
+    });            
 }
