@@ -7,7 +7,7 @@ var joshuaApi = '';
 var djApi = '';
 var joshuaApi = '';
 
-// Cocktail API Keys, since we are in a test enrionment for bootcamp project we will be use text apiKey = 1
+// Cocktail API Keys, since we are in a test environment for bootcamp project we will be use text apiKey = 1
 
 
 
@@ -40,7 +40,7 @@ function getRandomRec() {
 }
 
 function getRandomCoc() {
-    return Math.floor(Math.random() * 5);
+    return Math.floor(Math.random() * 10);
 }
 
 // this function will generate a recipe on screen from the api call and the function will include title of dish,
@@ -99,8 +99,23 @@ function generateCocktail(query) {
         url: "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + query,
         success: function(res){
             var randomCocNumber = getRandomCoc();
+
+            // this will add the drink name,drink image, and the instructions to the DOM
             titleEl.innerHTML = res.drinks[randomCocNumber].strDrink;
             imageEl.setAttribute('src', res.drinks[randomCocNumber].strDrinkThumb);
+            summaryEl.innerHTML = res.drinks[randomCocNumber].strInstructions;
+
+            // create a loop to run through all the non null measuerments and ingredients of the recipe and add to the DOM
+            
+            ingredientListEl.innerHTML ='<li>' + res.drinks[randomCocNumber].strMeasure1 + " - " + res.drinks[randomCocNumber].strIngredient1 + '</li>' + '<li>' + res.drinks[randomCocNumber].strMeasure2 + " - " + res.drinks[randomCocNumber].strIngredient2 + '</li>'
+            + '<li>' + res.drinks[randomCocNumber].strMeasure3 + " - " + res.drinks[randomCocNumber].strIngredient3 + '</li>' + '<li>' + res.drinks[randomCocNumber].strMeasure4 + " - " + res.drinks[randomCocNumber].strIngredient4 + '</li>' 
+            + '<li>' + res.drinks[randomCocNumber].strMeasure5 + " - " + res.drinks[randomCocNumber].strIngredient5 + '</li>' + '<li>' + res.drinks[randomCocNumber].strMeasure6 + " - " + res.drinks[randomCocNumber].strIngredient6 + '</li>'
+            + '<li>' + res.drinks[randomCocNumber].strMeasure7 + " - " + res.drinks[randomCocNumber].strIngredient7 + '</li>' + '<li>' + res.drinks[randomCocNumber].strMeasure8 + " - " + res.drinks[randomCocNumber].strIngredient8 + '</li>'
+            + '<li>' + res.drinks[randomCocNumber].strMeasure9 + " - " + res.drinks[randomCocNumber].strIngredient9 + '</li>' + '<li>' + res.drinks[randomCocNumber].strMeasure10 + " - " + res.drinks[randomCocNumber].strIngredient10 + '</li>'
+            + '<li>' + res.drinks[randomCocNumber].strMeasure11 + " - " + res.drinks[randomCocNumber].strIngredient11 + '</li>' + '<li>' + res.drinks[randomCocNumber].strMeasure12 + " - " + res.drinks[randomCocNumber].strIngredient12 + '</li>'
+            + '<li>' + res.drinks[randomCocNumber].strMeasure13 + " - " + res.drinks[randomCocNumber].strIngredient13 + '</li>' + '<li>' + res.drinks[randomCocNumber].strMeasure14 + " - " + res.drinks[randomCocNumber].strIngredient14 + '</li>'
+            + '<li>' + res.drinks[randomCocNumber].strMeasure15 + " - " + res.drinks[randomCocNumber].strIngredient15 + '</li>';
+        
         }
     });
 }
