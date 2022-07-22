@@ -1,3 +1,16 @@
+// Place your API Keys here
+
+// spponacular API Keys:
+var jorgeApi = '?apiKey=d5f1707aa8a94f70a3fce40a554aebc6';
+var jorgeApi2 = '?apiKey=2831de2f06594a778a430bad8ab00cba';
+var joshuaApi = '';
+var djApi = '';
+var joshuaApi = '';
+
+// Cocktail API Keys
+
+
+
 // Vars to connect to HTML
 var titleEl = document.getElementById('title');
 var imageEl = document.getElementById('image');
@@ -18,18 +31,17 @@ var recipeArray = [];
 var ingredientNameArray = [];
 
 
-// generates a random integer for recipeArray
+// generates a random integer for recipe API call
 function getRandomInt() {
     return Math.floor(Math.random() * 30);
 }
 
 // this function will generate a recipe on screen from the api call and the function will include title of dish,
 //  an image of the dish, and the names of the ingredients for the recipe. 
-
 function generateRecipe(query){
     // this api will call the ingredient name and picture to the dom
     $.ajax({
-        url:"https://api.spoonacular.com/recipes/search?apiKey=d5f1707aa8a94f70a3fce40a554aebc6&number=30&query="+ query,
+        url:"https://api.spoonacular.com/recipes/search" + jorgeApi2 + "&number=30&query="+ query,
         success: function(res){
             var randomIndex = getRandomInt();
             titleEl.innerHTML = res.results[randomIndex].title;
@@ -40,7 +52,7 @@ function generateRecipe(query){
 
             // will call the ingredients url and then add those ingredients to the DOM
             $.ajax({
-                url:"https://api.spoonacular.com/recipes/" + recipeId + "/ingredientWidget.json?apiKey=d5f1707aa8a94f70a3fce40a554aebc6",
+                url:"https://api.spoonacular.com/recipes/" + recipeId + "/ingredientWidget.json" + jorgeApi2,
                 success: function(res){
                     ingredientListEl.innerHTML = ''
                     for (var i = 0; res.ingredients.length; i++) {
@@ -64,7 +76,7 @@ function generateRecipe(query){
 
             //  will generate a recipe sumamry to be added to the <p> element class id Sumarry, using the Recipe Id
              $.ajax({
-                url:"https://api.spoonacular.com/recipes/" + recipeId + "/summary?apiKey=d5f1707aa8a94f70a3fce40a554aebc6",
+                url:"https://api.spoonacular.com/recipes/" + recipeId + "/summary" + jorgeApi2,
                 success: function(res){
                     summaryEl.innerHTML = res.summary;
                 }
