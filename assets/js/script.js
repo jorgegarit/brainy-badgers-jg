@@ -1,3 +1,15 @@
+// Vars to connect to HTML
+var titleEl = document.getElementById('title');
+var imageEl = document.getElementById('image');
+var ingredientListEl = document.getElementById('ingredient-list')
+
+//
+
+
+
+var recipeId;
+
+
 // Array so that the recipe button generates a random recipe from the array
 var recipeArray = [];
 
@@ -11,7 +23,7 @@ function getRandomInt() {
 }
 
 // this function will generate a recipe on screen from the api call and the function will include title of dish,
-//  an image of the dish, a link to the recipe website, adn the names of the ingredients for the recipe. 
+//  an image of the dish, and the names of the ingredients for the recipe. 
 
 function generateRecipe(query){
     // this api will call the ingredient name and picture to the dom
@@ -19,35 +31,22 @@ function generateRecipe(query){
         url:"https://api.spoonacular.com/recipes/search?apiKey=d5f1707aa8a94f70a3fce40a554aebc6&number=30&query="+ query,
         success: function(res){
             var randomIndex = getRandomInt();
-            recipeArray = res.results
-            document.getElementById("recipeCall").innerHTML = "<h3>" + res.results[randomIndex].title + "</h3><br><img src='" + res.baseUri + res.results[randomIndex].image + "'width='300'/>";
-            
-            // setting href attribute to recipeLink id so that it will take user to recipe website
-            document.getElementById("recipeLink").setAttribute("href", res.results[randomIndex].sourceUrl); 
-            
-            // this variable will be used in the following call to link ingredients to the random recipe that was generated 
-            var getRecipeId = res.results[randomIndex].id;
-            console.log(getRecipeId);
+            titleEl.innerHTML = res.results[randomIndex].title;
+            imageEl.setAttribute('src',res.baseUri + res.results[randomIndex].image);
+            // links id from first api call to recipeID which will be added into URL for second call
+            recipeId = res.results[randomIndex].id 
 
-            //for loop to display ingredients into DOM-----DJ
-            //We are going to need to create either "li/ul/ol" elements or display elements in an image
-            for (var i = 0; ingredientNameArray.length; i++) {
-                var ingredientText = ingredientNameArray[i];
-                console.log(ingredientText);
-            }
-
-            // calling the ingredients to the DOM
-            // i think the loop should go here, currently I have it set to call the first name in the array, but would want to 
-            // loop the entire array to display all ingredient. Created array updtop called ingredientNameArray
+            // will call the ingredients url and then add those ingredients to the DOM
             $.ajax({
-                url:"https://api.spoonacular.com/recipes/" + getRecipeId + "/ingredientWidget.json?apiKey=d5f1707aa8a94f70a3fce40a554aebc6",
+                url:"https://api.spoonacular.com/recipes/" + recipeId + "/ingredientWidget.json?apiKey=d5f1707aa8a94f70a3fce40a554aebc6",
                 success: function(res){
-                    document.getElementById("ingredient-list").innerHTML = res.ingredients[0].name;
+                    ingredientListEl.innerHTML = ''
+                    for (var i = 0; res.ingredients.length; i++) {
+                        // creating a list element inside the unordered list and will loop until all ingredient names are listed in DOM
+                        ingredientListEl.innerHTML = ingredientListEl.innerHTML + "<li>" + res.ingredients[i].name + "</li>";
+                    }
                 }
-            });
-
+             });
         }  
-    });
+    })            
 }
-}
-
