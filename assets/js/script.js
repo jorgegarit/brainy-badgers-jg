@@ -6,7 +6,7 @@
 
 
 // Active Api Key
-const apiKey = "?apiKey=715f411199a4422e9982991f89fdb06a";
+const apiKey = "?apiKey=d5f1707aa8a94f70a3fce40a554aebc6";
 
 
 
@@ -100,18 +100,183 @@ function generateCocktail(query) {
             imageEl.setAttribute('src', res.drinks[randomCocktNum].strDrinkThumb);
             recipeSummaryEl.innerHTML = res.drinks[randomCocktNum].strInstructions;
 
-            // this will add the ingredients to the list
-            ingredientListEl.innerHTML ='<li>' + res.drinks[randomCocktNum].strMeasure1 + " - " + res.drinks[randomCocktNum].strIngredient1 + '</li>' + '<li>' + res.drinks[randomCocktNum].strMeasure2 + " - " + res.drinks[randomCocktNum].strIngredient2 + '</li>'
-            + '<li>' + res.drinks[randomCocktNum].strMeasure3 + " - " + res.drinks[randomCocktNum].strIngredient3 + '</li>' + '<li>' + res.drinks[randomCocktNum].strMeasure4 + " - " + res.drinks[randomCocktNum].strIngredient4 + '</li>' 
-            + '<li>' + res.drinks[randomCocktNum].strMeasure5 + " - " + res.drinks[randomCocktNum].strIngredient5 + '</li>' + '<li>' + res.drinks[randomCocktNum].strMeasure6 + " - " + res.drinks[randomCocktNum].strIngredient6 + '</li>'
-            + '<li>' + res.drinks[randomCocktNum].strMeasure7 + " - " + res.drinks[randomCocktNum].strIngredient7 + '</li>' + '<li>' + res.drinks[randomCocktNum].strMeasure8 + " - " + res.drinks[randomCocktNum].strIngredient8 + '</li>'
-            + '<li>' + res.drinks[randomCocktNum].strMeasure9 + " - " + res.drinks[randomCocktNum].strIngredient9 + '</li>' + '<li>' + res.drinks[randomCocktNum].strMeasure10 + " - " + res.drinks[randomCocktNum].strIngredient10 + '</li>'
-            + '<li>' + res.drinks[randomCocktNum].strMeasure11 + " - " + res.drinks[randomCocktNum].strIngredient11 + '</li>' + '<li>' + res.drinks[randomCocktNum].strMeasure12 + " - " + res.drinks[randomCocktNum].strIngredient12 + '</li>'
-            + '<li>' + res.drinks[randomCocktNum].strMeasure13 + " - " + res.drinks[randomCocktNum].strIngredient13 + '</li>' + '<li>' + res.drinks[randomCocktNum].strMeasure14 + " - " + res.drinks[randomCocktNum].strIngredient14 + '</li>'
-            + '<li>' + res.drinks[randomCocktNum].strMeasure15 + " - " + res.drinks[randomCocktNum].strIngredient15 + '</li>';
+           
+            var meas1 = res.drinks[randomCocktNum].strMeasure1;
+            var ing1 = res.drinks[randomCocktNum].strIngredient1;
+
+            var meas2 = res.drinks[randomCocktNum].strMeasure2;
+            var ing2 = res.drinks[randomCocktNum].strIngredient2;
+
+            var meas3 = res.drinks[randomCocktNum].strMeasure3;
+            var ing3 = res.drinks[randomCocktNum].strIngredient3;
+
+            var meas4 = res.drinks[randomCocktNum].strMeasure4;
+            var ing4 = res.drinks[randomCocktNum].strIngredient4;
+
+            var meas5 = res.drinks[randomCocktNum].strMeasure5;
+            var ing5 = res.drinks[randomCocktNum].strIngredient5;
+
+            var meas6 = res.drinks[randomCocktNum].strMeasure6;
+            var ing6 = res.drinks[randomCocktNum].strIngredient6;
+
+            var meas7 = res.drinks[randomCocktNum].strMeasure7;
+            var ing7 = res.drinks[randomCocktNum].strIngredient7;
+
+            var meas8 = res.drinks[randomCocktNum].strMeasure8;
+            var ing8 = res.drinks[randomCocktNum].strIngredient8;
+
+            var meas9 = res.drinks[randomCocktNum].strMeasure9;
+            var ing9 = res.drinks[randomCocktNum].strIngredient9;
+
+            var meas10 = res.drinks[randomCocktNum].strMeasure10;
+            var ing10 = res.drinks[randomCocktNum].strIngredient10;
+
+            var meas11 = res.drinks[randomCocktNum].strMeasure11;
+            var ing11 = res.drinks[randomCocktNum].strIngredient11;
+
+            var meas12 = res.drinks[randomCocktNum].strMeasure12;
+            var ing12 = res.drinks[randomCocktNum].strIngredient12;
+
+            var meas13 = res.drinks[randomCocktNum].strMeasure13;
+            var ing13 = res.drinks[randomCocktNum].strIngredient13;
+
+            var meas14 = res.drinks[randomCocktNum].strMeasure14;
+            var ing14 = res.drinks[randomCocktNum].strIngredient14;
+
+            var meas15 = res.drinks[randomCocktNum].strMeasure15;
+            var ing15 = res.drinks[randomCocktNum].strIngredient15;
+
+            
+            ingredientListEl.innerHTML = "";
+
+            if (meas1 !== null && ing1 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + meas1 + " - " + ing1 + "</li>";
+            }else if (meas1 == null && ing1 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + ing1 + "</li>";
+            }
+            
+            if (meas2 !== null && ing2 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + meas2 + " - " + ing2 + "</li>";
+            }else if (meas2 == null && ing2 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + ing2 + "</li>";
+            }
+            
+            if (meas3 !== null && ing3 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + meas3 + " - " + ing3 + "</li>";
+            }else if (meas3 == null && ing3 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + ing3 + "</li>";
+            }
+            
+            if (meas4 !== null && ing4 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + meas4 + " - " + ing4 + "</li>";
+            }else if (meas4 == null && ing4 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + ing4 + "</li>";
+            }
+            
+            if (meas5 !== null && ing5 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + meas5 + " - " + ing5 + "</li>";
+            }else if (meas5 == null && ing5 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + ing5 + "</li>";
+            }
+            
+            if (meas6 !== null && ing6 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + meas6 + " - " + ing6 + "</li>";
+            }else if (meas6 == null && ing6 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + ing6 + "</li>";
+            }
+            
+            if (meas7 !== null && ing7 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + meas7 + " - " + ing7 + "</li>";
+            }else if (meas7 == null && ing7 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + ing7 + "</li>";
+            }
+            
+            if (meas8 !== null && ing8 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + meas8 + " - " + ing8 + "</li>";
+            }else if (meas8 == null && ing8 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + ing8 + "</li>";
+            }
+            
+            if (meas9 !== null && ing9 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + meas9 + " - " + ing9 + "</li>";
+            }else if (meas9 == null && ing9 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + ing9 + "</li>";
+            }
+            
+            if (meas10 !== null && ing10 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + meas10 + " - " + ing10 + "</li>";
+            }else if (meas10 == null && ing10 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + ing10 + "</li>";
+            }
+            
+            if (meas11 !== null && ing11 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + meas11 + " - " + ing11 + "</li>";
+            }else if (meas11 == null && ing11 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + ing11 + "</li>";
+            }
+            
+            if (meas12 !== null && ing12 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + meas12 + " - " + ing12 + "</li>";
+            }else if (meas12 == null && ing12 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + ing12 + "</li>";
+            }
+            
+            if (meas13 !== null && ing13 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + meas13 + " - " + ing13 + "</li>";
+            }else if (meas13 == null && ing13 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + ing13 + "</li>";
+            }
+            
+            if (meas14 !== null && ing14 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + meas14 + " - " + ing14 + "</li>";
+            }else if (meas14 == null && ing14 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + ing14 + "</li>";
+            }
+            
+            if (meas15 !== null && ing5 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + meas15 + " - " + ing15 + "</li>";
+            }else if (meas15 == null && ing15 !== null){
+                ingredientListEl.innerHTML = ingredientListEl.innerHTML + '<li>' + ing15 + "</li>";
+            }
+                
             
             sourceLinkEl.innerHTML = '';
             recipeStepsEl.innerHTML = '';
         }
     });
 }
+
+
+
+// // enable draggable/sortable featur on ingredient list
+// $(".card .list-group").sortable({
+//     // enables dragging acroos ingredient and grocery list
+//     connectWith: $(".card list-group"),
+//     scroll: false, 
+//     tolerance: "pointer",
+//     helper: "clone",
+
+//     activate: function(event, ui) {
+//         $(this).addClass("dropover");
+//     },
+//     deactivate: function(event, ui) {
+//         $(this).removeClass("dropover");
+//     },
+//     over: function(event) {
+//         (event.target).addClass("dropover-active");
+//     },
+//     update: function() {
+//         var tempArray = [];
+    
+
+//         // loop over the list
+//         $(this)
+//             .children()
+//             .each(function() {
+//                 tempArray.push({
+//                     test
+//                 })
+//             })
+//     }
+
+// })
