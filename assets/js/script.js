@@ -17,6 +17,7 @@ var imageEl = document.getElementById('image');
 var ingredientListEl = document.getElementById('ingredient-list');
 var summaryEl = document.getElementById('summary');
 var instructionsEl = document.getElementById('instructions');
+var sourceLinkEl = document.getElementById('sourceLink');
 //
 
 
@@ -53,6 +54,7 @@ function generateRecipe(query){
             var randomRecNumber = getRandomRec();
             titleEl.innerHTML = res.results[randomRecNumber].title;
             imageEl.setAttribute('src',res.baseUri + res.results[randomRecNumber].image);
+            sourceLinkEl.setAttribute("href", res.results[randomRecNumber].sourceUrl);
             // links id from first api call to recipeID which will be added into URL for second call
             recipeId = res.results[randomRecNumber].id 
             console.log(recipeId);
@@ -69,18 +71,18 @@ function generateRecipe(query){
                 }
             });
 
-            //  and step by step instructions, using recipe Id
-            $.ajax({
-                url: "https://api.spoonacular.com/recipes/" + recipeId + "/analyzedInstructions" + jorgeApi2,
-                success: function(res){
-                    // instructionsEl.innerHTML = ''
-                    // for (var i = 0; res.steps.length; i++){
-                        // creating a list element inside of the ordered list and will loop until all steps are listed in the DOM
-                        // instructionsEl.innerHTML = instructionsEl.innerHTML + "<li>" + res.steps[i].step + "</li>";
-                        instructionsEl.innerHTML =res[0].steps.step
-                    // }
-                }
-            });
+            // //  and step by step instructions, using recipe Id
+            // $.ajax({
+            //     url: "https://api.spoonacular.com/recipes/" + recipeId + "/analyzedInstructions" + jorgeApi2,
+            //     success: function(res){
+            //         // instructionsEl.innerHTML = ''
+            //         // for (var i = 0; res.steps.length; i++){
+            //             // creating a list element inside of the ordered list and will loop until all steps are listed in the DOM
+            //             // instructionsEl.innerHTML = instructionsEl.innerHTML + "<li>" + res.steps[i].step + "</li>";
+            //             instructionsEl.innerHTML =res[0].steps.step
+            //         // }
+            //     }
+            // });
 
             //  will generate a recipe sumamry to be added to the <p> element class id Sumarry, using the Recipe Id
              $.ajax({
@@ -105,7 +107,6 @@ function generateCocktail(query) {
             imageEl.setAttribute('src', res.drinks[randomCocNumber].strDrinkThumb);
             summaryEl.innerHTML = res.drinks[randomCocNumber].strInstructions;
 
-            // create a loop to run through all the non null measuerments and ingredients of the recipe and add to the DOM
             
             ingredientListEl.innerHTML ='<li>' + res.drinks[randomCocNumber].strMeasure1 + " - " + res.drinks[randomCocNumber].strIngredient1 + '</li>' + '<li>' + res.drinks[randomCocNumber].strMeasure2 + " - " + res.drinks[randomCocNumber].strIngredient2 + '</li>'
             + '<li>' + res.drinks[randomCocNumber].strMeasure3 + " - " + res.drinks[randomCocNumber].strIngredient3 + '</li>' + '<li>' + res.drinks[randomCocNumber].strMeasure4 + " - " + res.drinks[randomCocNumber].strIngredient4 + '</li>' 
