@@ -3,12 +3,12 @@
 // Jorge API Key = ?apiKey=d5f1707aa8a94f70a3fce40a554aebc6
 // Jorge Second API Key = ?apiKey=2831de2f06594a778a430bad8ab00cba
 // DJ API Key = ?apiKey=e70534b658a340b99af654cbac055309
-// Joshua API Key = ?apiKey=a330ecc10fb59496c90ffa0a5eeef54677f037db
+// Joshua API Key = ?apiKey=9f08ff1455114bd9abf01292e7f973bc
 
 //If 402 use different API Key
 
 // Active Api Key
-const apiKey = "?apiKey=d5f1707aa8a94f70a3fce40a554aebc6";
+const apiKey = "?apiKey=9f08ff1455114bd9abf01292e7f973bc";
 
 var titleEl = document.getElementById("title");
 var imageEl = document.getElementById("image");
@@ -17,6 +17,7 @@ var recipeStepsEl = document.getElementById("recipe-steps");
 var recipeSummaryEl = document.getElementById("recipe-summary");
 var sourceLinkEl = document.getElementById("sourceLink");
 var groceryListEl = document.getElementById("grocery-list");
+var inputFieldEl = document.getElementById("search");
 
 var recipeId;
 var recipeArray = [];
@@ -31,7 +32,7 @@ function getRandomNum(max) {
 // this function will generate a recipe on screen from the api call and the function will include title of dish,
 //  an image of the dish, and the names of the ingredients for the recipe, summary, and source link
 function generateRecipe(query) {
-  $.ajax({
+    $.ajax({
     url:
       "https://api.spoonacular.com/recipes/complexSearch" +
       apiKey +
@@ -39,6 +40,17 @@ function generateRecipe(query) {
       query +
       "&addRecipeInformation=true",
     success: function (res) {
+        var runfunc = res.totalResults;
+        // this will show an alert if the user input does not generate any results
+      if (runfunc === 0){
+        window.alert("No recipe could be generated from your input. Please try again! Suggestions: chicken, cake, appetizer." )
+        
+        // clears the input field
+        inputFieldEl.value = '';
+      } 
+      
+      // if the call produces totalResults > 0 this will run
+      else if (runfunc !== 0) {
       var randomRecNum = getRandomNum(30);
       titleEl.innerHTML = res.results[randomRecNum].title;
       imageEl.setAttribute("src", res.results[randomRecNum].image);
@@ -71,7 +83,9 @@ function generateRecipe(query) {
         },
       });
       generateSteps();
-    },
+      inputFieldEl.value = '';
+     }
+    }
   });
 }
 
