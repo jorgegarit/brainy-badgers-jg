@@ -7,7 +7,7 @@
 //If 402 use different API Key
 
 // Active Api Key
-const apiKey = "?apiKey=2831de2f06594a778a430bad8ab00cba";
+const apiKey = "?apiKey=d5f1707aa8a94f70a3fce40a554aebc6";
 
 var titleEl = document.getElementById("title");
 var imageEl = document.getElementById("image");
@@ -55,35 +55,27 @@ function generateRecipe(query) {
       recipeId = res.results[randomRecNum].id;
 
       // will call the ingredients url and then add those ingredients to the DOM
-
-      $.ajax({
-        url:
-          "https://api.spoonacular.com/recipes/" +
-          recipeId +
-          "/ingredientWidget.json" +
-          apiKey,
-        success: function (res) {
-          ingredientListEl.innerHTML = "";
-          for (var i = 0; res.ingredients.length; i++) {
-            // creating a list element inside the unordered list and will loop until all ingredient names are listed in DOM
-            ingredientListEl.innerHTML =
-              ingredientListEl.innerHTML +
-              "<li>" +
-              res.ingredients[i].amount.us.value +
-              " " +
-              res.ingredients[i].amount.us.unit +
-              " - " +
-              res.ingredients[i].name +
-              "</li>";
-          }
-        },
-      });
+        $.ajax({
+            url:
+            "https://api.spoonacular.com/recipes/" + recipeId + "/ingredientWidget.json" + apiKey,
+            success: function (res) {
+                ingredientListEl.innerHTML = "";
+                ingredientArray = [];
+                for (var i = 0; res.ingredients.length; i++) {
+                    // creating a list element inside the unordered list and will loop until all ingredient names are listed in DOM
+                    ingredientListEl.innerHTML = ingredientListEl.innerHTML + "<li>" + res.ingredients[i].amount.us.value + " " + res.ingredients[i].amount.us.unit + " - " +  res.ingredients[i].name + "</li>";
+                    // adding the ingredient list generated to the array to later move toward grocery list
+                    ingredientArray = ingredientArray + "<li>" + res.ingredients[i].name + " </li>";
+            } 
+            }
+        });
 
       generateSteps();
     },
   });
 }
 
+// displays the steps for the recipe to the DOM
 function generateSteps() {
   // clears out previous steps
   recipeStepsEl.innerHTML = "";
@@ -129,7 +121,7 @@ function generateCocktail(query) {
 
       // Clears ingredients list in case multiple searches
       ingredientListEl.innerHTML = "";
-
+      ingredientArray = [];
       // For loop to print ingredients and servings of each. The eval method evaluates any string as if you were coding it as regular code
       for (var i = 1; i < 16; i++) {
         var drinkMeasure = eval(
@@ -144,22 +136,20 @@ function generateCocktail(query) {
             "].strIngredient" +
             i.toString()
         );
-
+        
+        // creating if statements due to the API producing null values
         if (drinkMeasure !== null && drinkIngredient !== null) {
-          ingredientListEl.innerHTML =
-            ingredientListEl.innerHTML +
-            "<li>" +
-            drinkMeasure +
-            " - " +
-            drinkIngredient +
-            "</li>";
+          ingredientListEl.innerHTML = ingredientListEl.innerHTML + "<li>" + drinkMeasure + " - " + drinkIngredient + "</li>";
+          ingredientArray = ingredientArray +  "<li>" + drinkIngredient + "</li>"
         } else if (drinkMeasure == "null" && drinkIngredient !== "null") {
-          ingredientListEl.innerHTML =
-            ingredientListEl.innerHTML + "<li>" + drinkIngredient + "</li>";
+          ingredientListEl.innerHTML = ingredientListEl.innerHTML + "<li>" + drinkIngredient + "</li>";
+          ingredientArray = ingredientArray +  "<li>" + drinkIngredient + "</li>"
         } else if (drinkMeasure !== "null" && drinkIngredient == "null") {
-          ingredientListEl.innerHTML =
-            ingredientListEl.innerHTML + "<li>" + drinkMeasure + "</li>";
+          ingredientListEl.innerHTML = ingredientListEl.innerHTML + "<li>" + drinkMeasure + "</li>";
+          ingredientArray = ingredientArray +  "<li>" + drinkIngredient + "</li>"
         }
+
+        ;
       }
 
       // this removes the recipe and source link from the DOM
@@ -169,87 +159,12 @@ function generateCocktail(query) {
   });
 }
 
-function addToList(res) {
-    // $.ajax({
-    //     url:"https://api.spoonacular.com/recipes/" + recipeId + "/ingredientWidget.json" + apiKey,
-    //     success: function (res) {
-    //       for (var i = 0; res.ingredients.length; i++) {
-    //         groceryListEl.innerHTML = groceryListEl.innerHTML + "<li>" + res.ingredients[i].name + "</li>";
-    //       }
-    //     }
-    // });
 
 
-    $.ajax({
-        url: "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + query,
-        success: function (res) {
-          
-            for (var i = 1; i < 16; i++) {
-                var drinkIngredient = eval("res.drinks[" + randomCocktNum.toString() + "].strIngredient" + i.toString()
-                );
-                
-                if (drinkIngredient !== null) {
-                    groceryListEl.innerHTML = groceryListEl.innerHTML + "<li>" + drinkIngredient + "</li>";
-                } else if (drinkIngredient == "null") {
-                    groceryListEl.innerHTML = groceryListEl.innerHTML;
-                }
-            }
-        }
-    });
-    
+// this will add the array created into the frocery list section
+function addToList() {
+    groceryListEl.innerHTML = groceryListEl.innerHTML + ingredientArray;
+ 
 }
 
 
-
-// document.addEventListener('DOMContentLoaded', (event) => {
-
-//     function handleDragStart(e) {
-//         this.style.opacity = '0.4';
-
-//         dragSrcEl = this;
-
-//         e.dataTransfer.effectAllowed = 'move';
-//         e.dataTransfer.setData('text/html'. this.innerHTML);
-//     }
-
-//     function handleDragEnd(e) {
-//         this.style.opacity = '1';
-
-//         items.forEach(function (item) {
-//             item.classList.remove('over');
-//         });
-//     }
-
-//     function handleDragOver(e) {
-//         e.preventDefault();
-//         return false;
-//     }
-
-//     function handleDragEnter(e) {
-//         this.classList.add('over');
-//     }
-
-//     function handleDragLeave(e) {
-//         this.classList.remove('over');
-//     }
-
-//     function handleDrop(e) {
-//         e.stopPropagation(); 
-
-//         if (dragSrcEl !== this) {
-//             dragSrcEl.innerHTML = this.innerHTML;
-//             this.innerHTML = e.dataTransfer.getData('text/html');
-//         }
-        
-//         return false;
-//     }
-
-//     let items = document.querySelectorAll('.box-container .box');
-//     items.forEach(function(item) {
-//         item.addEventListener('dragstart', handleDragStart);
-//         item.addEventListener('dragover', handleDragOver);
-//         item.addEventListener('dragenter', handleDragEnter);
-//         item.addEventListener('dragend', handleDragEnd);
-//         item.addEventListener('drop', handleDrop);
-//     });
-// });
