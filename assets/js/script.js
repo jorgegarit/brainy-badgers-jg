@@ -7,7 +7,7 @@
 //If 402 use different API Key
 
 // Active Api Key
-const apiKey = "?apiKey=e70534b658a340b99af654cbac055309";
+const apiKey = "?apiKey=2831de2f06594a778a430bad8ab00cba";
 
 var titleEl = document.getElementById("title");
 var imageEl = document.getElementById("image");
@@ -15,11 +15,16 @@ var ingredientListEl = document.getElementById("ingredient-list");
 var recipeStepsEl = document.getElementById("recipe-steps");
 var recipeSummaryEl = document.getElementById("recipe-summary");
 var sourceLinkEl = document.getElementById("sourceLink");
+var groceryListEl = document.getElementById("grocery-list")
 
 var recipeId;
 var recipeArray = [];
 var ingredientArray = [];
 var groceryList = [];
+var randomRecNum;
+var randomCocktNum;
+var query;
+
 
 // generates a random integer for recipe or cocktail API call
 function getRandomNum(max) {
@@ -164,37 +169,87 @@ function generateCocktail(query) {
   });
 }
 
+function addToList(res) {
+    // $.ajax({
+    //     url:"https://api.spoonacular.com/recipes/" + recipeId + "/ingredientWidget.json" + apiKey,
+    //     success: function (res) {
+    //       for (var i = 0; res.ingredients.length; i++) {
+    //         groceryListEl.innerHTML = groceryListEl.innerHTML + "<li>" + res.ingredients[i].name + "</li>";
+    //       }
+    //     }
+    // });
 
 
-// // enable draggable/sortable featur on ingredient list
-// $(".card .list-group").sortable({
-//     // enables dragging acroos ingredient and grocery list
-//     connectWith: $(".card list-group"),
-//     scroll: false, 
-//     tolerance: "pointer",
-//     helper: "clone",
-
-//     activate: function(event, ui) {
-//         $(this).addClass("dropover");
-//     },
-//     deactivate: function(event, ui) {
-//         $(this).removeClass("dropover");
-//     },
-//     over: function(event) {
-//         (event.target).addClass("dropover-active");
-//     },
-//     update: function() {
-//         var tempArray = [];
+    $.ajax({
+        url: "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + query,
+        success: function (res) {
+          
+            for (var i = 1; i < 16; i++) {
+                var drinkIngredient = eval("res.drinks[" + randomCocktNum.toString() + "].strIngredient" + i.toString()
+                );
+                
+                if (drinkIngredient !== null) {
+                    groceryListEl.innerHTML = groceryListEl.innerHTML + "<li>" + drinkIngredient + "</li>";
+                } else if (drinkIngredient == "null") {
+                    groceryListEl.innerHTML = groceryListEl.innerHTML;
+                }
+            }
+        }
+    });
     
+}
 
-//         // loop over the list
-//         $(this)
-//             .children()
-//             .each(function() {
-//                 tempArray.push({
-//                     test
-//                 })
-//             })
+
+
+// document.addEventListener('DOMContentLoaded', (event) => {
+
+//     function handleDragStart(e) {
+//         this.style.opacity = '0.4';
+
+//         dragSrcEl = this;
+
+//         e.dataTransfer.effectAllowed = 'move';
+//         e.dataTransfer.setData('text/html'. this.innerHTML);
 //     }
 
-// })
+//     function handleDragEnd(e) {
+//         this.style.opacity = '1';
+
+//         items.forEach(function (item) {
+//             item.classList.remove('over');
+//         });
+//     }
+
+//     function handleDragOver(e) {
+//         e.preventDefault();
+//         return false;
+//     }
+
+//     function handleDragEnter(e) {
+//         this.classList.add('over');
+//     }
+
+//     function handleDragLeave(e) {
+//         this.classList.remove('over');
+//     }
+
+//     function handleDrop(e) {
+//         e.stopPropagation(); 
+
+//         if (dragSrcEl !== this) {
+//             dragSrcEl.innerHTML = this.innerHTML;
+//             this.innerHTML = e.dataTransfer.getData('text/html');
+//         }
+        
+//         return false;
+//     }
+
+//     let items = document.querySelectorAll('.box-container .box');
+//     items.forEach(function(item) {
+//         item.addEventListener('dragstart', handleDragStart);
+//         item.addEventListener('dragover', handleDragOver);
+//         item.addEventListener('dragenter', handleDragEnter);
+//         item.addEventListener('dragend', handleDragEnd);
+//         item.addEventListener('drop', handleDrop);
+//     });
+// });
