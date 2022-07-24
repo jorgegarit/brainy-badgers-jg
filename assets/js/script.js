@@ -39,18 +39,20 @@ function generateRecipe(query) {
       "&number=30&query=" +
       query +
       "&addRecipeInformation=true",
-    success: function (res) {
-        var runfunc = res.totalResults;
+    
+      success: function (res) {
+        var runRec = res.totalResults;
+
         // this will show an alert if the user input does not generate any results
-      if (runfunc === 0){
-        window.alert("No recipe could be generated from your input. Please try again! Suggestions: chicken, cake, appetizer." )
+      if (runRec === 0){
+        window.alert("No recipe could be generated from your input. Please try again! Suggestions: Chicken, Cake, Appetizer." )
         
         // clears the input field
         inputFieldEl.value = '';
       } 
       
       // if the call produces totalResults > 0 this will run
-      else if (runfunc !== 0) {
+      else if (runRec !== 0) {
       var randomRecNum = getRandomNum(30);
       titleEl.innerHTML = res.results[randomRecNum].title;
       imageEl.setAttribute("src", res.results[randomRecNum].image);
@@ -116,48 +118,61 @@ function generateCocktail(query) {
   // this call will generate the cocktail name and image to the DOM
   $.ajax({
     url: "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + query,
+
     success: function (res) {
-      var randomCocktNum = getRandomNum(10);
+      var runCockt = res.drinks;
 
-      // this will add the drink name,drink image, and the instructions to the DOM
-      titleEl.innerHTML = res.drinks[randomCocktNum].strDrink;
-      imageEl.setAttribute("src", res.drinks[randomCocktNum].strDrinkThumb);
-      recipeSummaryEl.innerHTML = res.drinks[randomCocktNum].strInstructions;
+      if (runCockt === null) {
+        window.alert("No cocktail could be generated from your input. Please try again! Suggestions: Gin, Vodka, Rum.")
 
-      // Clears ingredients list in case multiple searches
-      ingredientListEl.innerHTML = "";
-      ingredientArray = [];
-
-      // For loop to print ingredients and servings of each. The eval method evaluates any string as if you were coding it as regular code
-      for (var i = 1; i < 16; i++) {
-        var drinkMeasure = eval(
-          "res.drinks[" +
-            randomCocktNum.toString() +
-            "].strMeasure" +
-            i.toString()
-        );
-        var drinkIngredient = eval(
-          "res.drinks[" +
-            randomCocktNum.toString() +
-            "].strIngredient" +
-            i.toString()
-        );
-
-        if (drinkMeasure !== null && drinkIngredient !== null) {
-          ingredientListEl.innerHTML = ingredientListEl.innerHTML + "<li>" + drinkMeasure + " - " + drinkIngredient + "</li>";
-          ingredientArray = ingredientArray +  "<li>" + drinkIngredient + "</li>"
-        } else if (drinkMeasure == "null" && drinkIngredient !== "null") {
-          ingredientListEl.innerHTML = ingredientListEl.innerHTML + "<li>" + drinkIngredient + "</li>";
-          ingredientArray = ingredientArray +  "<li>" + drinkIngredient + "</li>"
-        } else if (drinkMeasure !== "null" && drinkIngredient == "null") {
-          ingredientListEl.innerHTML = ingredientListEl.innerHTML + "<li>" + drinkMeasure + "</li>";
-          ingredientArray = ingredientArray +  "<li>" + drinkIngredient + "</li>"
-        }
+        inputFieldEl.value = '';
       }
 
-      // this removes the recipe and source link from the DOM
-      sourceLinkEl.innerHTML = "";
-      recipeStepsEl.innerHTML = "";
+
+      else if (runCockt !== null) {
+        var randomCocktNum = getRandomNum(10);
+
+        // this will add the drink name,drink image, and the instructions to the DOM
+        titleEl.innerHTML = res.drinks[randomCocktNum].strDrink;
+        imageEl.setAttribute("src", res.drinks[randomCocktNum].strDrinkThumb);
+        recipeSummaryEl.innerHTML = res.drinks[randomCocktNum].strInstructions;
+
+        // Clears ingredients list in case multiple searches
+        ingredientListEl.innerHTML = "";
+        ingredientArray = [];
+
+        // For loop to print ingredients and servings of each. The eval method evaluates any string as if you were coding it as regular code
+        for (var i = 1; i < 16; i++) {
+            var drinkMeasure = eval(
+            "res.drinks[" +
+                randomCocktNum.toString() +
+                "].strMeasure" +
+                i.toString()
+            );
+            var drinkIngredient = eval(
+            "res.drinks[" +
+                randomCocktNum.toString() +
+                "].strIngredient" +
+                i.toString()
+            );
+
+            if (drinkMeasure !== null && drinkIngredient !== null) {
+            ingredientListEl.innerHTML = ingredientListEl.innerHTML + "<li>" + drinkMeasure + " - " + drinkIngredient + "</li>";
+            ingredientArray = ingredientArray +  "<li>" + drinkIngredient + "</li>"
+            } else if (drinkMeasure == "null" && drinkIngredient !== "null") {
+            ingredientListEl.innerHTML = ingredientListEl.innerHTML + "<li>" + drinkIngredient + "</li>";
+            ingredientArray = ingredientArray +  "<li>" + drinkIngredient + "</li>"
+            } else if (drinkMeasure !== "null" && drinkIngredient == "null") {
+            ingredientListEl.innerHTML = ingredientListEl.innerHTML + "<li>" + drinkMeasure + "</li>";
+            ingredientArray = ingredientArray +  "<li>" + drinkIngredient + "</li>"
+            }
+        }
+
+        // this removes the recipe and source link from the DOM
+        sourceLinkEl.innerHTML = "";
+        recipeStepsEl.innerHTML = "";
+        inputFieldEl.value = "";
+     }
     },
   });
 }
@@ -186,6 +201,7 @@ function saveList() {
 
 }
 
+// linked to delete list button and will clear the grocery list
 function deleteList() {
     groceryListEl.innerHTML= '';
     localStorage.clear();
