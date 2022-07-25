@@ -19,6 +19,8 @@ var sourceLinkEl = document.getElementById("sourceLink");
 var groceryListEl = document.getElementById("grocery-list");
 var inputFieldEl = document.getElementById("search");
 
+var runRec;
+var runCockt;
 var recipeId;
 var recipeArray = [];
 var ingredientArray = [];
@@ -45,8 +47,7 @@ function generateRecipe(query) {
 
         // this will show an alert if the user input does not generate any results
       if (runRec === 0){
-        window.alert("No recipe could be generated from your input. Please try again! Suggestions: Chicken, Cake, Appetizer." )
-        
+        toggleModal();
         // clears the input field
         inputFieldEl.value = '';
       } 
@@ -123,8 +124,7 @@ function generateCocktail(query) {
       var runCockt = res.drinks;
 
       if (runCockt === null) {
-        window.alert("No cocktail could be generated from your input. Please try again! Suggestions: Gin, Vodka, Rum.")
-
+        toggleModal();
         inputFieldEl.value = '';
       }
 
@@ -190,9 +190,11 @@ groceryListEl.addEventListener('dblclick', function(event) {
   });
 
 // this will add all the ingredients to the grocery list section
-function addToList() {
+function addToList(event) {
     groceryListEl.innerHTML = groceryListEl.innerHTML + ingredientArray;
 }
+
+
 
 
 // this is connected to the save button in HTML and will save the ingredients on grocery list to local storage 
@@ -222,6 +224,16 @@ function loadList() {
     groceryListEl.innerHTML = JSON.parse(localStorage.getItem("ingredient"));
 }
 
+// reads modal information
+$(document).ready(function(){
+    $('.modal').modal();
+})
+
+// when called will display modal to DOM
+function toggleModal(){
+    var instance= M.Modal.getInstance($('#modal1'))
+    instance.open();
+}
+
 // will be called when page loads
 loadList();
-
