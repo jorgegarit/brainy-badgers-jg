@@ -6,12 +6,12 @@ To design a front-end site that will generate either a recipe or a coktail based
 
 ### Built With
 
-*HTML
-*CSS
-*JavaScript
-*JQuery
-*Ajax
-*Materialize
+* HTML
+* CSS
+* JavaScript
+* JQuery
+* Ajax
+* Materialize
 
 ### Website
 
@@ -21,10 +21,10 @@ Click [here](https://jorgegarit.github.io/brainy-badgers-jg/) to view Brainy Rec
 
 ##### The Brainy Badgers
 
-Joshua Aldrich: [GitHub](https://github.com/JoshuaAldrich)
-Jorge Garit: [GitHub](https://github.com/jorgegarit)
-Theodore Greer: [GitHub](https://github.com/tdgreer1203)
-Darryl Johnson: [GitHub](https://github.com/HeadbandDandy)
+* Joshua Aldrich: [GitHub](https://github.com/JoshuaAldrich)
+* Jorge Garit: [GitHub](https://github.com/jorgegarit)
+* Theodore Greer: [GitHub](https://github.com/tdgreer1203)
+* Darryl Johnson: [GitHub](https://github.com/HeadbandDandy)
 
 
 ## Deployed Application
